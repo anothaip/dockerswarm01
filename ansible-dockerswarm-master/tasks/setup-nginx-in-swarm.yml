@@ -1,0 +1,13 @@
+---
+
+- name: Check if "Swarm Mode" is enabled.
+  shell: docker info
+  changed_when: false
+  register: docker_info
+  tags:
+    - skip_ansible_lint  # Suppressing the linter
+    
+- name: Deploy nginx into swarm.
+  shell: docker stack deploy -c ./demo/docker-compose.yml nodeapp
+  when: "docker_info.stdout.find('Swarm: active') != -1
+    and inventory_hostname == groups['docker_swarm_manager'][0]"

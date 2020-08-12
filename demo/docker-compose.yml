@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+    nginx:
+        build: .
+        image: nginxdemos/hello
+        ports:
+            - "80:80"
+            - "443:443"
+        networks:
+            - mynet
+        deploy:
+            mode: replicated
+            replicas: 2
+networks:
+    mynet:

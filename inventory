@@ -1,0 +1,14 @@
+manager  ansible_connection=local ansible_ssh_host=192.168.50.10
+worker01 ansible_ssh_host=192.168.50.11
+
+
+[docker_engine]
+manager
+worker01
+
+
+[docker_swarm_manager]
+manager swarm_labels=deploy
+
+[docker_swarm_worker]
+worker01 swarm_labels='["libvirt", "docker", "foo", "bar"]'
